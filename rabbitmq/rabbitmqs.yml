@@ -1,8 +1,0 @@
----
-- hosts: rabbitmqs
-  remote_user: root
-  roles:
-      - role: rabbitmqs
-  vars:
-    master: true
-  - include: rabbitmqctl.yml

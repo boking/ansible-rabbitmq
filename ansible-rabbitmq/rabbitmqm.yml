@@ -1,0 +1,7 @@
+---
+- hosts: rabbitmqm
+  remote_user: root
+  roles:
+      - role: rabbitmqm
+  vars:
+    master: true 

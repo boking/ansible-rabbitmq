@@ -1,0 +1,11 @@
+[rabbitmqm]
+10.9.28.142
+
+[rabbitmqs]
+10.9.28.143 hostname=rabbitmqm-142
+10.9.28.144 hostname=rabbitmqm-142
+
+[rabbitmq]
+10.9.28.142 
+10.9.28.143
+10.9.28.144

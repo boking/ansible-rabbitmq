@@ -1,0 +1,39 @@
+---
+#- name: modify hosts
+#  template: src=hosts.j2 dest=/etc/hosts
+
+- name: install rabbitmq
+  shell: yum install rabbitmq-server --nogpgcheck -y
+- name: copy cookie
+  copy: src=files/.erlang.cookie dest=/var/lib/rabbitmq/.erlang.cookie
+
+- name: command
+  command: chown rabbitmq:rabbitmq /var/lib/rabbitmq/.erlang.cookie
+
+- name: chmod
+  command: chmod 400 /var/lib/rabbitmq/.erlang.cookie
+
+- name: enable auth
+  shell: systemctl enable rabbitmq-server.service
+
+- name: iptable1
+  shell: systemctl disable firewalld.service
+
+- name: iptable2
+  shell: systemctl stop firewalld.service
+
+- name: start rabbitmq
+  shell: systemctl restart rabbitmq-server.service
+
+- name: stop_app
+  shell: rabbitmqctl stop_app
+
+- name: reset rabbitmq
+  shell: rabbitmqctl reset
+
+- name: join rabbitmqmaster
+  shell: rabbitmqctl join_cluster --ram rabbit@{{hostname}}
+
+- name: start_app
+  shell: rabbitmqctl start_app
+

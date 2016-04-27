@@ -1,0 +1,12 @@
+---
+- hosts: rabbitmqs
+  remote_user: root
+  roles:
+      - role: rabbitmqs
+  tasks: 
+      - name : HA
+        shell: rabbitmqctl set_policy ha-all "\.*" '{"ha-mode":"all"}'
+        when: ansible_eth0.ipv4.address == '10.9.28.144'
+  vars:
+    master: true
+
